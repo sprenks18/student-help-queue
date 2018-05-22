@@ -1,0 +1,3 @@
+server.host=python.cs.wlu.edu
+#server.host=localhost
+server.port=5014
