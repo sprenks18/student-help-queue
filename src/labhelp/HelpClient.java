@@ -5,6 +5,7 @@ package labhelp;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -52,7 +53,6 @@ public class HelpClient extends JFrame {
 
 		try {
 			hostname = InetAddress.getLocalHost().getHostName();
-			System.out.println(hostname);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,6 +94,11 @@ public class HelpClient extends JFrame {
 		waitingList = new JTextArea(20, 30);
 		waitingList.setEditable(false);
 		waitingList.setText(performCommand(LIST_COMMAND));
+		
+		Font font = new Font("Arial", Font.PLAIN, 18);
+		waitingList.setFont(font);
+		waitingList.setForeground(Color.BLUE);
+		
 		wlPanel.add(waitingList);
 
 		panel.add(wlPanel);
