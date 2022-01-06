@@ -258,9 +258,12 @@ public class HelpClient extends JFrame {
 
 	private String createInfo() {
 		String hostnameInfo = "";
-		String hostvariable = hostname.substring(0, hostname.indexOf('.'));
-		if (HelpConfiguration.hostMap.containsKey(hostvariable)) {
-			hostnameInfo = " - " + (String) HelpConfiguration.hostMap.get(hostvariable);
+		String hostLocal = hostname;
+		if (hostname.contains(".")) { // fully qualified hostname
+			hostLocal = hostname.substring(0, hostname.indexOf('.'));
+		}
+		if (HelpConfiguration.hostMap.containsKey(hostLocal)) {
+			hostnameInfo = " - " + (String) HelpConfiguration.hostMap.get(hostLocal);
 		}
 		return hostname + hostnameInfo;
 	}
