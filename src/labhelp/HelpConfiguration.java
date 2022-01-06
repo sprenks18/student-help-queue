@@ -34,9 +34,6 @@ public class HelpConfiguration {
 
 		SERVER_NAME = helpProp.getProperty("server.host");
 		SERVER_PORT = Integer.parseInt(helpProp.getProperty("server.port"));
-		
-		System.out.println(hostMap);
-
 	}
 
 }
