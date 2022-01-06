@@ -92,11 +92,8 @@ public class HelpClient extends JFrame {
 		JPanel wlPanel = new JPanel();
 		TitledBorder title = BorderFactory.createTitledBorder("Waiting List: ");
 		wlPanel.setBorder(title);
-		//JLabel waitingListLabel = new JLabel("Waiting List:", SwingConstants.LEFT);
-		//waitingListLabel.setBackground(Color.WHITE);
-		//wlPanel.add(waitingListLabel, BorderLayout.NORTH);
 
-		waitingList = new JTextArea(20, 50);
+		waitingList = new JTextArea(20, 40);
 		waitingList.setEditable(false);
 		waitingList.setText(performCommand(LIST_COMMAND));
 
