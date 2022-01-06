@@ -91,7 +91,7 @@ public class HelpClient extends JFrame {
 		JLabel waitingListLabel = new JLabel("Waiting List:");
 		wlPanel.add(waitingListLabel);
 
-		waitingList = new JTextArea(20, 30);
+		waitingList = new JTextArea(20, 50);
 		waitingList.setEditable(false);
 		waitingList.setText(performCommand(LIST_COMMAND));
 
