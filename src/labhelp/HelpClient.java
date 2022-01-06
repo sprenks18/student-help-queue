@@ -94,11 +94,11 @@ public class HelpClient extends JFrame {
 		waitingList = new JTextArea(20, 30);
 		waitingList.setEditable(false);
 		waitingList.setText(performCommand(LIST_COMMAND));
-		
+
 		Font font = new Font("Arial", Font.PLAIN, 18);
 		waitingList.setFont(font);
 		waitingList.setForeground(Color.BLUE);
-		
+
 		wlPanel.add(waitingList);
 
 		panel.add(wlPanel);
@@ -133,6 +133,7 @@ public class HelpClient extends JFrame {
 	@Override
 	public void dispose() {
 		try {
+			questionAnswered();
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -191,20 +192,16 @@ public class HelpClient extends JFrame {
 		boolean done = false;
 		while (!done) {
 
-			if (!responseStream.hasNextLine()) {
-				continue;
-			}
-
-			String line = responseStream.nextLine();
-			// handle response
-			if (line == null)
-				continue;
-			else {
-				String response = line.trim();
-				// System.out.println("server response: " + response);
-				statusDisplay.setText("");
-				response = formatResponse(response);
-				return response;
+			if (responseStream.hasNextLine()) {
+				String line = responseStream.nextLine();
+				// handle response
+				if (line != null) {
+					String response = line.trim();
+					// System.out.println("server response: " + response);
+					statusDisplay.setText("");
+					response = formatResponse(response);
+					return response;
+				}
 			}
 		}
 		return null;
