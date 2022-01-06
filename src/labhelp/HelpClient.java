@@ -244,7 +244,7 @@ public class HelpClient extends JFrame {
 	private void addStudentToQueue() {
 		String info = createInfo();
 		waitingList.setText(performCommand("ADD " + username + " AT " + info));
-		statusDisplay.setText("Added " + username + "to queue.");
+		statusDisplay.setText("Added " + username + " to queue.");
 	}
 
 	/**
