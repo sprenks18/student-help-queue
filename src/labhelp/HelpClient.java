@@ -265,6 +265,10 @@ public class HelpClient extends JFrame {
 		if (HelpConfiguration.hostMap.containsKey(hostLocal)) {
 			hostnameInfo = " - " + (String) HelpConfiguration.hostMap.get(hostLocal);
 		}
+		System.out.println("hostname: " + hostname);
+		System.out.println("hostLocal: " + hostLocal);
+		System.out.println("hostnameInfo: " + hostnameInfo);
+		
 		return hostname + hostnameInfo;
 	}
 
