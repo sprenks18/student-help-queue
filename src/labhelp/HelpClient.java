@@ -220,7 +220,7 @@ public class HelpClient extends JFrame {
 			return formattedString;
 		}
 		StringBuilder builder = new StringBuilder();
-		String[] studentList = formattedString.split(", ");
+		String[] studentList = formattedString.split(",  ");
 
 		for (int i = 0; i < studentList.length; i++) {
 			builder.append(i + 1);
