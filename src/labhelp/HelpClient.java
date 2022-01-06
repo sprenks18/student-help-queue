@@ -15,13 +15,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.TitledBorder;
 
 /**
  * The GUI client that students can use to add themselves or remove themselves
@@ -87,9 +90,11 @@ public class HelpClient extends JFrame {
 	private void createWaitingListPanel(JPanel panel) {
 
 		JPanel wlPanel = new JPanel();
-
-		JLabel waitingListLabel = new JLabel("Waiting List:");
-		wlPanel.add(waitingListLabel);
+		TitledBorder title = BorderFactory.createTitledBorder("Waiting List: ");
+		wlPanel.setBorder(title);
+		//JLabel waitingListLabel = new JLabel("Waiting List:", SwingConstants.LEFT);
+		//waitingListLabel.setBackground(Color.WHITE);
+		//wlPanel.add(waitingListLabel, BorderLayout.NORTH);
 
 		waitingList = new JTextArea(20, 50);
 		waitingList.setEditable(false);
