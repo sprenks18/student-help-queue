@@ -282,9 +282,9 @@ public class HelpClient extends JFrame {
 	 */
 	public static void main(String[] args) {
 		HelpClient client = new HelpClient();
-		System.out.println(args.length);
 		if (args.length > 0) {
 			if (args[0].equals("clear") || args[0].equals("reset")) {
+				System.out.println("Requesting clear of wait list");
 				client.clearWaitingList();
 				client.dispose();
 			}
