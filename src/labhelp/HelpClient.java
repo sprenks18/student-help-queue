@@ -258,6 +258,13 @@ public class HelpClient extends JFrame {
 		statusDisplay.setText("Removed " + username + " from queue.");
 	}
 
+	/**
+	 * Connect to server; remove all students from the list
+	 */
+	private void clearWaitingList() {
+		performCommand("CLEAR");
+	}
+
 	private String createInfo() {
 		String hostnameInfo = "";
 		String hostLocal = hostname;
@@ -274,7 +281,16 @@ public class HelpClient extends JFrame {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new HelpClient();
+		HelpClient client = new HelpClient();
+		System.out.println(args.length);
+		if (args.length > 0) {
+			System.out.println("Ran");
+			if (args[0].equals("clear") || args[0].equals("reset")) {
+				client.clearWaitingList();
+				client.dispose();
+			}
+		}
+
 	}
 
 }
