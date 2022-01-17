@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 public class HelpServer {
 
+	private static final String REMOVE_USER_FROM_LIST = "REMOVE";
 	public static final int SERVER_PORT = HelpConfiguration.SERVER_PORT;
 	public static final String SERVER_HOST = HelpConfiguration.SERVER_NAME;
 
@@ -48,7 +49,7 @@ public class HelpServer {
 				} else if (command.startsWith("LIST")) {
 					System.out.println(students);
 					out.println(students);
-				} else if (command.startsWith("REMOVE")) {
+				} else if (command.startsWith(REMOVE_USER_FROM_LIST)) {
 					String username = extractInfoFromCommand(command);
 					Iterator<String> studentIter = students.iterator();
 					while (studentIter.hasNext()) {
@@ -59,7 +60,11 @@ public class HelpServer {
 					}
 					out.println(students);
 					System.out.println(students);
-				} else
+				} else if(command.startsWith("CLEAR")) {
+					students.clear();
+					out.println("Cleared waiting list");
+				}
+				else
 					out.println("Echo:" + command.trim().toUpperCase());
 				scanner.close();
 			}
