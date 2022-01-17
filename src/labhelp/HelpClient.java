@@ -284,7 +284,6 @@ public class HelpClient extends JFrame {
 		HelpClient client = new HelpClient();
 		System.out.println(args.length);
 		if (args.length > 0) {
-			System.out.println("Ran");
 			if (args[0].equals("clear") || args[0].equals("reset")) {
 				client.clearWaitingList();
 				client.dispose();
