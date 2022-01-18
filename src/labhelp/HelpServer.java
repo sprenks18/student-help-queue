@@ -62,7 +62,8 @@ public class HelpServer {
 					System.out.println(students);
 				} else if(command.startsWith("CLEAR")) {
 					students.clear();
-					out.println("Cleared waiting list");
+					System.out.println("Cleared waiting list");
+					out.println(students);
 				}
 				else
 					out.println("Echo:" + command.trim().toUpperCase());
