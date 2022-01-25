@@ -97,7 +97,7 @@ public class HelpClient extends JFrame {
 		waitingList.setEditable(false);
 		waitingList.setText(performCommand(LIST_COMMAND));
 
-		Font font = new Font("Arial", Font.PLAIN, 18);
+		Font font = new Font("Arial", Font.PLAIN, 20);
 		waitingList.setFont(font);
 		waitingList.setForeground(Color.BLUE);
 
