@@ -61,7 +61,7 @@ public class HelpServer {
 					}
 					System.out.println(whichList);
 					out.println(whichList);
-				} else if (command.startsWith("LIST")) {
+				} else if (command.startsWith(LIST_COMMAND)) {
 					List<String> whichList = command.endsWith(WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
 					System.out.println(whichList);
 					out.println(whichList);
