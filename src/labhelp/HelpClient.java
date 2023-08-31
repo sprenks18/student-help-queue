@@ -5,6 +5,7 @@ package labhelp;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -63,20 +64,17 @@ public class HelpClient extends JFrame {
 		}
 
 		createStatusDisplay();
+		add(statusDisplay, BorderLayout.SOUTH);
 
 		JPanel panel = (JPanel) getContentPane();
 		panel.setLayout(new BorderLayout());
 		panel.setBackground(Color.white);
-
 
 		createWaitingListPanel(panel);
 		createInstructorWaitingListPanel(panel);
 
 		makeDashBoard(panel);
 		
-		add(statusDisplay, BorderLayout.SOUTH);
-
-
 		ActionListener task = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				updateLists();
@@ -95,6 +93,10 @@ public class HelpClient extends JFrame {
 		JPanel wlPanel = new JPanel();
 		TitledBorder title = BorderFactory.createTitledBorder("Waiting List: ");
 		wlPanel.setBorder(title);
+		wlPanel.setLayout(new BorderLayout());
+		
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(WLU_BLUE);
 
 		waitingList = new JTextArea(20, 40);
 		waitingList.setEditable(false);
@@ -103,10 +105,29 @@ public class HelpClient extends JFrame {
 		Font font = new Font("Arial", Font.PLAIN, 20);
 		waitingList.setFont(font);
 		waitingList.setForeground(WLU_BLUE);
+		
+		JButton questionButton = new JButton("I have a question!");
+		questionButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addStudentToQueue();
+			}
+		});
+		buttonPanel.add(questionButton);
 
+		JButton questionAnsweredButton = new JButton("Question Answered!");
+		questionAnsweredButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				questionAnswered(HelpServer.WAITLIST, waitingList);
+			}
+		});
+		buttonPanel.add(questionAnsweredButton);
+		
+		wlPanel.add(buttonPanel, BorderLayout.NORTH);
 		wlPanel.add(waitingList);
 
-		panel.add(wlPanel);
+		wlPanel.setPreferredSize(new Dimension(500, 300));
+
+		panel.add(wlPanel, BorderLayout.CENTER);
 	}
 
 	
@@ -118,8 +139,8 @@ public class HelpClient extends JFrame {
 		instWLPanel.setLayout(new BorderLayout());
 		
 		JPanel buttonPanel = new JPanel();
+		buttonPanel.setBackground(WLU_BLUE);
 		
-
 		instWaitingList = new JTextArea(20, 40);
 		instWaitingList.setEditable(false);
 		instWaitingList.setText(performCommand(LIST_COMMAND + HelpServer.INSTRUCTOR_LIST));
@@ -149,8 +170,7 @@ public class HelpClient extends JFrame {
 		instWaitingList.setForeground(WLU_BLUE);
 
 		instWLPanel.add(instWaitingList);
-		instWLPanel.setSize(50, instWLPanel.getPreferredSize().height);
-
+		instWLPanel.setPreferredSize(new Dimension(400, instWLPanel.getHeight()));
 		panel.add(instWLPanel, BorderLayout.EAST);
 		
 	}
@@ -203,14 +223,7 @@ public class HelpClient extends JFrame {
 		JPanel dashboard = new JPanel();
 		dashboard.setBackground(WLU_BLUE);
 
-		JButton questionButton = new JButton("I have a question!");
-		questionButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				addStudentToQueue();
-			}
-		});
-		dashboard.add(questionButton);
-
+		
 		JButton updateListButton = new JButton("Update lists");
 		updateListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -218,14 +231,6 @@ public class HelpClient extends JFrame {
 			}
 		});
 		dashboard.add(updateListButton);
-
-		JButton questionAnsweredButton = new JButton("Question Answered!");
-		questionAnsweredButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				questionAnswered(HelpServer.WAITLIST, waitingList);
-			}
-		});
-		dashboard.add(questionAnsweredButton);
 		
 		panel.add(dashboard, BorderLayout.NORTH);
 	}
