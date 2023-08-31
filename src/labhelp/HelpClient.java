@@ -153,9 +153,6 @@ public class HelpClient extends JFrame {
 
 		panel.add(instWLPanel, BorderLayout.EAST);
 		
-		System.out.println(instWLPanel.getSize());
-		System.out.println(instWLPanel.getWidth());
-
 	}
 	
 	private void createStatusDisplay() {
