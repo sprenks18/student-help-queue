@@ -35,7 +35,7 @@ import javax.swing.border.TitledBorder;
 public class HelpClient extends JFrame {
 
 	private static final Color WLU_BLUE = Color.decode("#003399");
-	private static final int UPDATE_INTERVAL_IN_MILLISECONDS = 20000;
+	private static final int UPDATE_INTERVAL_IN_MILLISECONDS = 30000;
 	private static final String LIST_COMMAND = HelpServer.LIST_COMMAND;
 	private static final long serialVersionUID = 1L;
 	private String username = System.getProperty("user.name");
@@ -299,7 +299,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void addStudentToQueue() {
 		String info = createInfo();
-		waitingList.setText(performCommand( HelpServer.ADD_TO_WAITLIST + " " + username + " AT " + info));
+		waitingList.setText(performCommand( HelpServer.ADD_TO_WAITLIST + username + " AT " + info));
 		statusDisplay.setText("Added " + username + " to queue.");
 	}
 	
@@ -308,7 +308,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void addStudentToInstructorQueue() {
 		String info = createInfo();
-		instWaitingList.setText(performCommand(HelpServer.ADD_TO_INSTRUCTOR_QUEUE + " " + username + " AT " + info));
+		instWaitingList.setText(performCommand(HelpServer.ADD_TO_INSTRUCTOR_QUEUE + username + " AT " + info));
 		statusDisplay.setText("Added " + username + " to instructor queue.");
 	}
 
@@ -317,7 +317,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void questionAnswered(String whichList, JTextArea textArea) {
 		String info = createInfo();
-		textArea.setText(performCommand(HelpServer.REMOVE_CMD + whichList + " " + username + " AT " + info));
+		textArea.setText(performCommand(HelpServer.REMOVE_CMD + whichList + username + " AT " + info));
 		statusDisplay.setText("Removed " + username + " from queue.");
 		updateLists();
 	}
