@@ -36,7 +36,7 @@ public class HelpClient extends JFrame {
 
 	private static final Color WLU_BLUE = Color.decode("#003399");
 	private static final int UPDATE_INTERVAL_IN_MILLISECONDS = 20000;
-	private static final String LIST_COMMAND = "LIST";
+	private static final String LIST_COMMAND = HelpServer.LIST_COMMAND;
 	private static final long serialVersionUID = 1L;
 	private String username = System.getProperty("user.name");
 	private String hostname = "";
@@ -135,7 +135,6 @@ public class HelpClient extends JFrame {
 		JButton answeredButton = new JButton("Question answered");
 		answeredButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// addStudentToInstructorQueue();
 				// TODO: Make this for the right queue
 				questionAnswered();
 			}
@@ -287,8 +286,8 @@ public class HelpClient extends JFrame {
 	 * Connect to server; get where they are on the list; update the view
 	 */
 	private void updateLists() {
-		waitingList.setText(performCommand(LIST_COMMAND));
-		instWaitingList.setText(performCommand(LIST_COMMAND));
+		waitingList.setText(performCommand(LIST_COMMAND + HelpServer.WAITLIST ));
+		instWaitingList.setText(performCommand(LIST_COMMAND + HelpServer.INSTRUCTOR_LIST ));
 	}
 
 	/**
@@ -314,7 +313,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void questionAnswered() {
 		String info = createInfo();
-		waitingList.setText(performCommand("REMOVE " + username + " AT " + info));
+		waitingList.setText(performCommand(HelpServer.REMOVE_USER_FROM_WAITLIST + username + " AT " + info));
 		statusDisplay.setText("Removed " + username + " from queue.");
 	}
 
@@ -322,9 +321,13 @@ public class HelpClient extends JFrame {
 	 * Connect to server; remove all students from the list
 	 */
 	private void clearWaitingList() {
-		performCommand("CLEAR");
+		performCommand(HelpServer.CLEAR_CMD);
 	}
 
+	/**
+	 * Creates info about the host machine
+	 * @return the host machine information
+	 */
 	private String createInfo() {
 		String hostnameInfo = "";
 		String hostLocal = hostname;

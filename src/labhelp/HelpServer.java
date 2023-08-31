@@ -11,15 +11,18 @@ import java.util.Scanner;
 
 public class HelpServer {
 
+	public static final String INSTRUCTOR_LIST = "_INST ";
+	public static final String WAITLIST = "_WL ";
+
 	public static final String CLEAR_CMD = "CLEAR";
 
 	public static final String ADD_CMD = "ADD";
-	public static final String ADD_TO_WAITLIST = ADD_CMD + "_WL";
-	public static final String ADD_TO_INSTRUCTOR_QUEUE = ADD_CMD + "_INST";
+	public static final String ADD_TO_WAITLIST = ADD_CMD + WAITLIST;
+	public static final String ADD_TO_INSTRUCTOR_QUEUE = ADD_CMD + INSTRUCTOR_LIST;
 
 	public static final String REMOVE_CMD = "REMOVE";
-	public static final String REMOVE_USER_FROM_WAITLIST = REMOVE_CMD + "_WL";
-	public static final String REMOVE_USER_FROM_INST_QUEUE = REMOVE_CMD + "_INST";
+	public static final String REMOVE_USER_FROM_WAITLIST = REMOVE_CMD + WAITLIST;
+	public static final String REMOVE_USER_FROM_INST_QUEUE = REMOVE_CMD + INSTRUCTOR_LIST;
 	
 	public static final String LIST_COMMAND = "LIST";
 
@@ -59,8 +62,9 @@ public class HelpServer {
 					System.out.println(whichList);
 					out.println(whichList);
 				} else if (command.startsWith("LIST")) {
-					System.out.println(studentsWaiting);
-					out.println(studentsWaiting);
+					List<String> whichList = command.endsWith(WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
+					System.out.println(whichList);
+					out.println(whichList);
 				} else if (command.startsWith(REMOVE_CMD)) {
 										
 					List<String> whichList = command.startsWith(REMOVE_USER_FROM_WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
