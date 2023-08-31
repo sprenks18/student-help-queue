@@ -48,12 +48,14 @@ public class HelpClient extends JFrame {
 	private JTextArea waitingList;
 	private JTextArea instWaitingList;
 	private Timer timer;
+	
+	private int HEIGHT = 400;
 
 	/**
 	 * Create a new HelpClient interface
 	 */
 	private HelpClient() {
-		setTitle("Help Client: " + username);
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLayout(new BorderLayout());
 
@@ -63,6 +65,8 @@ public class HelpClient extends JFrame {
 			e.printStackTrace();
 		}
 
+		setTitle("Lab Help: " + username + " on " + hostname);
+		
 		createStatusDisplay();
 		add(statusDisplay, BorderLayout.SOUTH);
 
@@ -73,7 +77,7 @@ public class HelpClient extends JFrame {
 		createWaitingListPanel(panel);
 		createInstructorWaitingListPanel(panel);
 
-		makeDashBoard(panel);
+		//makeDashBoard(panel);
 		
 		ActionListener task = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -125,7 +129,7 @@ public class HelpClient extends JFrame {
 		wlPanel.add(buttonPanel, BorderLayout.NORTH);
 		wlPanel.add(waitingList);
 
-		wlPanel.setPreferredSize(new Dimension(500, 300));
+		wlPanel.setPreferredSize(new Dimension(500, HEIGHT));
 
 		panel.add(wlPanel, BorderLayout.CENTER);
 	}
@@ -137,6 +141,7 @@ public class HelpClient extends JFrame {
 		TitledBorder title = BorderFactory.createTitledBorder("Instructor Waiting List: ");
 		instWLPanel.setBorder(title);
 		instWLPanel.setLayout(new BorderLayout());
+		instWLPanel.setBackground(Color.yellow);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(WLU_BLUE);
@@ -152,7 +157,7 @@ public class HelpClient extends JFrame {
 			}
 		});
 		
-		JButton answeredButton = new JButton("Question answered");
+		JButton answeredButton = new JButton("Question Answered!");
 		answeredButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				questionAnswered(HelpServer.INSTRUCTOR_LIST, instWaitingList);
@@ -170,7 +175,7 @@ public class HelpClient extends JFrame {
 		instWaitingList.setForeground(WLU_BLUE);
 
 		instWLPanel.add(instWaitingList);
-		instWLPanel.setPreferredSize(new Dimension(400, instWLPanel.getHeight()));
+		instWLPanel.setPreferredSize(new Dimension(400, HEIGHT));
 		panel.add(instWLPanel, BorderLayout.EAST);
 		
 	}
