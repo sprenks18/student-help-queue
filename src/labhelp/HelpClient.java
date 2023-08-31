@@ -221,7 +221,7 @@ public class HelpClient extends JFrame {
 		JButton questionAnsweredButton = new JButton("Question Answered!");
 		questionAnsweredButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				questionAnswered(HelpServer.INSTRUCTOR_LIST);
+				questionAnswered(HelpServer.WAITLIST);
 			}
 		});
 		dashboard.add(questionAnsweredButton);
