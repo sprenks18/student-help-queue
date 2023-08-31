@@ -98,7 +98,7 @@ public class HelpClient extends JFrame {
 
 		waitingList = new JTextArea(20, 40);
 		waitingList.setEditable(false);
-		waitingList.setText(performCommand(LIST_COMMAND));
+		waitingList.setText(performCommand(HelpServer.LIST_COMMAND + HelpServer.WAITLIST));
 
 		Font font = new Font("Arial", Font.PLAIN, 20);
 		waitingList.setFont(font);
@@ -122,7 +122,7 @@ public class HelpClient extends JFrame {
 
 		instWaitingList = new JTextArea(20, 40);
 		instWaitingList.setEditable(false);
-		instWaitingList.setText(performCommand(LIST_COMMAND));
+		instWaitingList.setText(performCommand(LIST_COMMAND + HelpServer.INSTRUCTOR_LIST));
 		
 		JButton instructorRequestButton = new JButton("Instructor, please!");
 		instructorRequestButton.addActionListener(new ActionListener() {
@@ -317,7 +317,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void questionAnswered(String whichList, JTextArea textArea) {
 		String info = createInfo();
-		textArea.setText(performCommand(HelpServer.REMOVE_CMD + "_" + whichList + " " + username + " AT " + info));
+		textArea.setText(performCommand(HelpServer.REMOVE_CMD + whichList + " " + username + " AT " + info));
 		statusDisplay.setText("Removed " + username + " from queue.");
 		updateLists();
 	}
