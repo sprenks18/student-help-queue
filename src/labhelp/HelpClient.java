@@ -21,7 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
@@ -35,6 +34,7 @@ import javax.swing.border.TitledBorder;
  */
 public class HelpClient extends JFrame {
 
+	private static final Color WLU_BLUE = Color.decode("#003399");
 	private static final int UPDATE_INTERVAL_IN_MILLISECONDS = 20000;
 	private static final String LIST_COMMAND = "LIST";
 	private static final long serialVersionUID = 1L;
@@ -45,6 +45,7 @@ public class HelpClient extends JFrame {
 	private Scanner responseStream;
 	private JLabel statusDisplay;
 	private JTextArea waitingList;
+	private JTextArea instWaitingList;
 	private Timer timer;
 
 	/**
@@ -53,6 +54,7 @@ public class HelpClient extends JFrame {
 	private HelpClient() {
 		setTitle("Help Client: " + username);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLayout(new BorderLayout());
 
 		try {
 			hostname = InetAddress.getLocalHost().getHostName();
@@ -70,12 +72,13 @@ public class HelpClient extends JFrame {
 		panel.add(statusDisplay, BorderLayout.SOUTH);
 
 		createWaitingListPanel(panel);
+		createInstructorWaitingListPanel(panel);
 
 		makeDashBoard(panel);
 
 		ActionListener task = new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				updateList();
+				updateLists();
 			}
 		};
 
@@ -99,13 +102,60 @@ public class HelpClient extends JFrame {
 
 		Font font = new Font("Arial", Font.PLAIN, 20);
 		waitingList.setFont(font);
-		waitingList.setForeground(Color.BLUE);
+		waitingList.setForeground(WLU_BLUE);
 
 		wlPanel.add(waitingList);
 
 		panel.add(wlPanel);
 	}
 
+	
+	private void createInstructorWaitingListPanel(JPanel panel) {
+
+		JPanel wlPanel = new JPanel();
+		TitledBorder title = BorderFactory.createTitledBorder("Instructor Waiting List: ");
+		wlPanel.setBorder(title);
+		wlPanel.setSize(100, wlPanel.getPreferredSize().height);
+		wlPanel.setLayout(new BorderLayout());
+		
+		JPanel buttonPanel = new JPanel();
+		
+
+		instWaitingList = new JTextArea(20, 40);
+		instWaitingList.setEditable(false);
+		instWaitingList.setText(performCommand(LIST_COMMAND));
+		
+		JButton instructorRequestButton = new JButton("Instructor, please!");
+		instructorRequestButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				addStudentToInstructorQueue();
+			}
+		});
+		
+		JButton answeredButton = new JButton("Question answered");
+		answeredButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// addStudentToInstructorQueue();
+				// TODO: Make this for the right queue
+				questionAnswered();
+			}
+		});
+		
+		buttonPanel.add(instructorRequestButton);
+		buttonPanel.add(answeredButton);
+		
+		wlPanel.add(buttonPanel, BorderLayout.NORTH);
+
+
+		Font font = new Font("Arial", Font.PLAIN, 20);
+		instWaitingList.setFont(font);
+		instWaitingList.setForeground(WLU_BLUE);
+
+		wlPanel.add(instWaitingList);
+
+		panel.add(wlPanel, BorderLayout.EAST);
+	}
+	
 	private void createStatusDisplay() {
 		statusDisplay = new JLabel();
 		statusDisplay.setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -151,7 +201,7 @@ public class HelpClient extends JFrame {
 	 */
 	private void makeDashBoard(JPanel panel) {
 		JPanel dashboard = new JPanel();
-		dashboard.setBackground(Color.blue);
+		dashboard.setBackground(WLU_BLUE);
 
 		JButton questionButton = new JButton("I have a question!");
 		questionButton.addActionListener(new ActionListener() {
@@ -161,10 +211,10 @@ public class HelpClient extends JFrame {
 		});
 		dashboard.add(questionButton);
 
-		JButton updateListButton = new JButton("Update list");
+		JButton updateListButton = new JButton("Update lists");
 		updateListButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateList();
+				updateLists();
 			}
 		});
 		dashboard.add(updateListButton);
@@ -176,7 +226,7 @@ public class HelpClient extends JFrame {
 			}
 		});
 		dashboard.add(questionAnsweredButton);
-
+		
 		panel.add(dashboard, BorderLayout.NORTH);
 	}
 
@@ -236,8 +286,9 @@ public class HelpClient extends JFrame {
 	/**
 	 * Connect to server; get where they are on the list; update the view
 	 */
-	private void updateList() {
+	private void updateLists() {
 		waitingList.setText(performCommand(LIST_COMMAND));
+		instWaitingList.setText(performCommand(LIST_COMMAND));
 	}
 
 	/**
@@ -247,6 +298,15 @@ public class HelpClient extends JFrame {
 		String info = createInfo();
 		waitingList.setText(performCommand("ADD " + username + " AT " + info));
 		statusDisplay.setText("Added " + username + " to queue.");
+	}
+	
+	/**
+	 * Connect to server; add the student to the queue
+	 */
+	private void addStudentToInstructorQueue() {
+		String info = createInfo();
+		waitingList.setText(performCommand(HelpServer.ADD_TO_INSTRUCTOR_QUEUE + username + " AT " + info));
+		statusDisplay.setText("Added " + username + " to instructor queue.");
 	}
 
 	/**
