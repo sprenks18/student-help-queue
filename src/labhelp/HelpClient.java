@@ -340,9 +340,12 @@ public class HelpClient extends JFrame {
 			hostLocal = hostname.substring(0, hostname.indexOf('.'));
 		}
 		if (HelpConfiguration.hostMap.containsKey(hostLocal)) {
-			hostnameInfo = " - " + (String) HelpConfiguration.hostMap.get(hostLocal);
+			hostnameInfo = (String) HelpConfiguration.hostMap.get(hostLocal);
 		}
-		return hostname + hostnameInfo;
+		else {
+			hostnameInfo = hostLocal;
+		}
+		return hostnameInfo;
 	}
 
 	/**
