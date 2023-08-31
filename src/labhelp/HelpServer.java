@@ -14,11 +14,13 @@ public class HelpServer {
 	private static final String CLEAR_CMD = "CLEAR";
 
 	public static final String ADD_CMD = "ADD";
-
 	public static final String ADD_TO_WAITLIST = ADD_CMD + "_WL";
 	public static final String ADD_TO_INSTRUCTOR_QUEUE = ADD_CMD + "_INST";
-	public static final String REMOVE_USER_FROM_LIST = "REMOVE";
-	public static final String REMOVE_USER_FROM_INST_QUEUE = "INST_REMOVE";
+
+	public static final String REMOVE_CMD = "REMOVE";
+	public static final String REMOVE_USER_FROM_WAITLIST = REMOVE_CMD + "_WL";
+	public static final String REMOVE_USER_FROM_INST_QUEUE = REMOVE_CMD + "_INST";
+	
 	public static final String LIST_COMMAND = "LIST";
 
 	public static final int SERVER_PORT = HelpConfiguration.SERVER_PORT;
@@ -49,7 +51,6 @@ public class HelpServer {
 				if (command == null)
 					continue;
 				else if (command.startsWith(ADD_CMD)) {
-					
 					List<String> whichList = command.startsWith(ADD_TO_WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
 					String username = extractInfoFromCommand(command);
 					if (!whichList.contains(username)) {
@@ -60,21 +61,26 @@ public class HelpServer {
 				} else if (command.startsWith("LIST")) {
 					System.out.println(studentsWaiting);
 					out.println(studentsWaiting);
-				} else if (command.startsWith(REMOVE_USER_FROM_LIST)) {
+				} else if (command.startsWith(REMOVE_CMD)) {
+										
+					List<String> whichList = command.startsWith(REMOVE_USER_FROM_WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
+					
 					String username = extractInfoFromCommand(command);
-					Iterator<String> studentIter = studentsWaiting.iterator();
+					Iterator<String> studentIter = whichList.iterator();
 					while (studentIter.hasNext()) {
 						if (studentIter.next().equals(username)) {
 							studentIter.remove();
 							break;
 						}
 					}
-					out.println(studentsWaiting);
-					System.out.println(studentsWaiting);
+					out.println(whichList);
+					System.out.println(whichList);
 				} else if (command.startsWith(CLEAR_CMD)) {
 					studentsWaiting.clear();
-					System.out.println("Cleared waiting list");
+					studentsWaitingForInstructor.clear();
+					System.out.println("Cleared waiting lists");
 					out.println(studentsWaiting);
+					out.println(studentsWaitingForInstructor);
 				} else
 					out.println("Echo:" + command.trim().toUpperCase());
 				scanner.close();
