@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 public class HelpServer {
 
-	private static final String CLEAR_CMD = "CLEAR";
+	public static final String CLEAR_CMD = "CLEAR";
 
 	public static final String ADD_CMD = "ADD";
 	public static final String ADD_TO_WAITLIST = ADD_CMD + "_WL";
