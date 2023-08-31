@@ -135,8 +135,7 @@ public class HelpClient extends JFrame {
 		JButton answeredButton = new JButton("Question answered");
 		answeredButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// TODO: Make this for the right queue
-				questionAnswered();
+				questionAnswered(HelpServer.INSTRUCTOR_LIST);
 			}
 		});
 		
@@ -184,7 +183,8 @@ public class HelpClient extends JFrame {
 	@Override
 	public void dispose() {
 		try {
-			questionAnswered();
+			questionAnswered(HelpServer.WAITLIST);
+			questionAnswered(HelpServer.INSTRUCTOR_LIST);
 			socket.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -221,7 +221,7 @@ public class HelpClient extends JFrame {
 		JButton questionAnsweredButton = new JButton("Question Answered!");
 		questionAnsweredButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				questionAnswered();
+				questionAnswered(HelpServer.INSTRUCTOR_LIST);
 			}
 		});
 		dashboard.add(questionAnsweredButton);
@@ -311,9 +311,9 @@ public class HelpClient extends JFrame {
 	/**
 	 * Connect to server; remove student from the list; update the view
 	 */
-	private void questionAnswered() {
+	private void questionAnswered(String whichList) {
 		String info = createInfo();
-		waitingList.setText(performCommand(HelpServer.REMOVE_USER_FROM_WAITLIST + username + " AT " + info));
+		waitingList.setText(performCommand(HelpServer.REMOVE_CMD + "_" + whichList + " " + username + " AT " + info));
 		statusDisplay.setText("Removed " + username + " from queue.");
 	}
 
