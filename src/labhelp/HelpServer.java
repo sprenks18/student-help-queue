@@ -11,7 +11,21 @@ import java.util.Scanner;
 
 public class HelpServer {
 
-	private static final String REMOVE_USER_FROM_LIST = "REMOVE";
+	public static final String INSTRUCTOR_LIST = "_INST ";
+	public static final String WAITLIST = "_WL ";
+
+	public static final String CLEAR_CMD = "CLEAR";
+
+	public static final String ADD_CMD = "ADD";
+	public static final String ADD_TO_WAITLIST = ADD_CMD + WAITLIST;
+	public static final String ADD_TO_INSTRUCTOR_QUEUE = ADD_CMD + INSTRUCTOR_LIST;
+
+	public static final String REMOVE_CMD = "REMOVE";
+	public static final String REMOVE_USER_FROM_WAITLIST = REMOVE_CMD + WAITLIST;
+	public static final String REMOVE_USER_FROM_INST_QUEUE = REMOVE_CMD + INSTRUCTOR_LIST;
+	
+	public static final String LIST_COMMAND = "LIST";
+
 	public static final int SERVER_PORT = HelpConfiguration.SERVER_PORT;
 	public static final String SERVER_HOST = HelpConfiguration.SERVER_NAME;
 
@@ -19,7 +33,8 @@ public class HelpServer {
 		System.out.println("Starting server on " + SERVER_PORT);
 
 		ServerSocket svr1;
-		List<String> students = new ArrayList<String>();
+		List<String> studentsWaiting = new ArrayList<String>();
+		List<String> studentsWaitingForInstructor = new ArrayList<>();
 
 		try {
 			svr1 = new ServerSocket(SERVER_PORT);
@@ -29,8 +44,7 @@ public class HelpServer {
 			while (!done) {
 				Socket incoming = svr1.accept();
 				Scanner scanner = new Scanner(incoming.getInputStream());
-				PrintWriter out = new PrintWriter(incoming.getOutputStream(),
-						true);
+				PrintWriter out = new PrintWriter(incoming.getOutputStream(), true);
 				if (!scanner.hasNextLine()) {
 					continue;
 				}
@@ -39,33 +53,39 @@ public class HelpServer {
 				// check if enqueue or dequeue
 				if (command == null)
 					continue;
-				else if (command.startsWith("ADD")) {
+				else if (command.startsWith(ADD_CMD)) {
+					List<String> whichList = command.startsWith(ADD_TO_WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
 					String username = extractInfoFromCommand(command);
-					if (!students.contains(username)) {
-						students.add(username);
+					if (!whichList.contains(username)) {
+						whichList.add(username);
 					}
-					System.out.println(students);
-					out.println(students);
-				} else if (command.startsWith("LIST")) {
-					System.out.println(students);
-					out.println(students);
-				} else if (command.startsWith(REMOVE_USER_FROM_LIST)) {
+					System.out.println(whichList);
+					out.println(whichList);
+				} else if (command.startsWith(LIST_COMMAND)) {
+					List<String> whichList = command.endsWith(WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
+					System.out.println(whichList);
+					out.println(whichList);
+				} else if (command.startsWith(REMOVE_CMD)) {
+										
+					List<String> whichList = command.startsWith(REMOVE_USER_FROM_WAITLIST)?studentsWaiting:studentsWaitingForInstructor;
+					
 					String username = extractInfoFromCommand(command);
-					Iterator<String> studentIter = students.iterator();
+					Iterator<String> studentIter = whichList.iterator();
 					while (studentIter.hasNext()) {
 						if (studentIter.next().equals(username)) {
 							studentIter.remove();
 							break;
 						}
 					}
-					out.println(students);
-					System.out.println(students);
-				} else if(command.startsWith("CLEAR")) {
-					students.clear();
-					System.out.println("Cleared waiting list");
-					out.println(students);
-				}
-				else
+					out.println(whichList);
+					System.out.println(whichList);
+				} else if (command.startsWith(CLEAR_CMD)) {
+					studentsWaiting.clear();
+					studentsWaitingForInstructor.clear();
+					System.out.println("Cleared waiting lists");
+					out.println(studentsWaiting);
+					out.println(studentsWaitingForInstructor);
+				} else
 					out.println("Echo:" + command.trim().toUpperCase());
 				scanner.close();
 			}
@@ -81,7 +101,7 @@ public class HelpServer {
 		String info = command.substring(command.indexOf(' '));
 		return info;
 	}
-	
+
 	private static String extractUsernameFromCommand(final String command) {
 		String[] data = command.split("\\s");
 		String username = data[1];
