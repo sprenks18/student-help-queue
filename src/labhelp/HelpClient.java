@@ -47,7 +47,7 @@ public class HelpClient extends JFrame {
 	private JTextArea instWaitingList;
 	private Timer timer;
 
-	private int WIDTH = 400;
+	private int WIDTH = 500;
 
 	/**
 	 * Create a new HelpClient interface
