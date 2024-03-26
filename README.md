@@ -15,6 +15,9 @@ To run the server:
 
 > java -cp labhelp.jar labhelp.HelpServer
 
+There is a script on the server to run to start the help server on start.
+Put the script (labhelp-server.service) in /etc/systemd/system/
+
 To run the client:
 
 > java -jar labhelp.jar
