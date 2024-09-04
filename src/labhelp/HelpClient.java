@@ -366,7 +366,7 @@ public class HelpClient extends JFrame {
 				client.clearWaitingList();
 				client.dispose();
 			} else if( args[0].equals("hostcheck") ) {
-			    System.out.println(createInfo());
+			    System.out.println(client.createInfo());
 			    client.dispose();
 			}
 		}
