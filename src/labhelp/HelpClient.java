@@ -374,7 +374,7 @@ public class HelpClient extends JFrame {
 			} else if( args[0].equals("hostcheck") ) {
 			    System.out.println(client.createInfo());
 			}
-			System.exit();
+			System.exit(0);
 		}
 		client.setUpGUI();
 
