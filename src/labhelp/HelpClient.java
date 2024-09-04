@@ -54,14 +54,20 @@ public class HelpClient extends JFrame {
 	 */
 	private HelpClient() {
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLayout(new BorderLayout());
-
 		try {
 			hostname = InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+
+	}
+
+    /**
+     * Create GUI
+     */
+    private void setUpGUI() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLayout(new BorderLayout());
 
 		setTitle("Lab Help");
 
@@ -85,7 +91,8 @@ public class HelpClient extends JFrame {
 
 		pack();
 		setVisible(true);
-	}
+
+    }
 
 	/**
 	 * Create a panel for waiting students and add it to the container
@@ -370,6 +377,7 @@ public class HelpClient extends JFrame {
 			    client.dispose();
 			}
 		}
+		client.setUpGUI();
 
 	}
 
