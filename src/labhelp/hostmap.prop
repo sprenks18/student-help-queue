@@ -4,8 +4,8 @@ apl.cs.wlu.edu=405 Table 1 - 2
 43355-CSCI-ILAB=apl - Table 1 - 2
 algol.cs.wlu.edu=405 Table 1 - 1
 43356-CSCI-ILAB=algol - Table - 1
-cobol.cs.wlu.edu=405 Table 2 - 6
-43360-CSCI-ILAB=cobol - Table 2 - 6
+smalltalk.cs.wlu.edu=405 Table 2 - 6
+43370-CSCI-ILAB=smalltalk - Table 2 - 
 cilk.cs.wlu.edu=405 Table 2 - 5
 43361-CSCI-ILAB=cilk - Table 2 - 5
 basic.cs.wlu.edu=405 Table 1 - 4
@@ -22,8 +22,8 @@ limbo.cs.wlu.edu=405 - Table 3 - 11
 43373-CSCI-ILAB=limbo - Table 3 - 11
 java.cs.wlu.edu=P413 - 10
 43374-CSCI-ILAB=java - P413 - 10
-modula.cs.wlu.edu=405 Table 4 - 13
-43351-CSCI-ILAB=modula - Table 4 - 13
+ruby.cs.wlu.edu=405 Table 4 - 13
+43365-CSCI-ILAB=ruby - Table 4 - 13
 logo.cs.wlu.edu=405 Table 4 - 14
 43352-CSCI-ILAB=logo - Table 4 - 14
 lisp.cs.wlu.edu=405 Table 4 - 15
@@ -38,13 +38,11 @@ scheme.cs.wlu.edu=405 Table 5 - 19
 43363-CSCI-ILAB=scheme - Table 5 - 19
 rexx.cs.wlu.edu=405 Table 5 - 20
 43364-CSCI-ILAB=rexx - Table 5 - 20
-ruby.cs.wlu.edu=P413 - 21
-43365-CSCI-ILAB=ruby - P413 - 21
-smalltalk.cs.wlu.edu=P413 - 23
-43370-CSCI-ILAB=smalltalk - P413 - 23
 simula.cs.wlu.edu=Table 3 - 10
 43371-CSCI-ILAB=simula - Table 3 - 10 
-alsace.cs.wlu.edu=P404
+
+
+
 minsky.cs.wlu.edu=P413
 41888-CSCI-ALAB=minsky
 knuth.cs.wlu.edu=P413
@@ -67,7 +65,6 @@ shannon.cs.wlu.edu=P413
 snobol.cs.wlu.edu=instructor (front)
 43369-CSCI-ILAB=snobol - instructor (front)
 spartacus-2=sprenkle
-python.cs.wlu.edu=P413
-43350-CSCI-ILAB=python P413
+
 
 
